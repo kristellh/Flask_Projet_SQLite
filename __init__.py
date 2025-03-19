@@ -49,11 +49,30 @@ def Readfiche(post_id):
     # Rendre le template HTML et transmettre les données
     return render_template('read_data.html', data=data)
 
+@app.route('/fiche_livre/<int:post_id>')
+def Readfiche2(post_id):
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM livres WHERE id = ?', (post_id,))
+    data = cursor.fetchall()
+    conn.close()
+    # Rendre le template HTML et transmettre les données
+    return render_template('read_data2.html', data=data)
+    
 @app.route('/consultation/')
 def ReadBDD():
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM clients;')
+    data = cursor.fetchall()
+    conn.close()
+    return render_template('read_data.html', data=data)
+
+@app.route('/consultation_livre/')
+def ReadBDD2():
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM livres;')
     data = cursor.fetchall()
     conn.close()
     return render_template('read_data.html', data=data)
@@ -80,6 +99,22 @@ def enregistrer_client():
     conn.commit()
     conn.close()
     return redirect('/consultation/')  # Rediriger vers la page d'accueil après l'enregistrement
+
+
+@app.route('/enregistrer_livre', methods=['POST'])
+def enregistrer_livre():
+    titre = request.form['titre']
+    auteur = request.form['auteur']
+
+    # Connexion à la base de données
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
+
+    # Exécution de la requête SQL pour insérer un nouveau client
+    cursor.execute('INSERT INTO livres (created, titre, auteur,date_pret, utilisateur_pret) VALUES (?, ?, ?, ?,?)', (titre, auteur,"",""))
+    conn.commit()
+    conn.close()
+    return redirect('/consultation_livre/')  # Rediriger vers la page d'accueil
                                                                                                                                        
 if __name__ == "__main__":
   app.run(debug=True)
