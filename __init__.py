@@ -91,7 +91,7 @@ def supprimer_livre():
     return render_template('supprimer_livre.html')  # afficher le formulaire
 # afficher le formulaire
 
-@app.route('/supprimer_livre', methods=['GET'])
+@app.route('/rechercher_livre', methods=['GET'])
 def rechercher_livre():
     return render_template('rechercher_livre.html')
 
@@ -158,17 +158,26 @@ def rechercher_livre_post():
     conn = sqlite3.connect('database2.db')
     cursor = conn.cursor()
 
-    # Suppression en fonction du titre, auteur ou id
-    if id:  # Si un id est fourni, supprimer par id
-        cursor.execute('SELECT FROM livres WHERE id = ?', (id,))
-    else:  # Sinon, supprimer par titre et auteur
-        cursor.execute('SELECT FROM livres WHERE titre = ? AND auteur = ?', (titre, auteur))
+    # Si un ID est fourni, recherche par ID
+    if id:
+        cursor.execute('SELECT * FROM livres WHERE id = ?', (id,))
+    else:  # Recherche par titre et auteur
+        cursor.execute('SELECT * FROM livres WHERE titre = ? AND auteur = ?', (titre, auteur))
 
-    conn.commit()
+    # Récupérer les résultats de la requête
+    livres = cursor.fetchall()
     conn.close()
 
-    # Rediriger vers la page de consultation après la suppression
-    return redirect('/consultation_livre/')
+    # Si des livres ont été trouvés, rediriger vers la fiche du premier livre trouvé
+    if livres:
+        # Supposons que tu veux rediriger vers la fiche du premier livre trouvé
+        # livres[0][0] fait référence à l'ID du premier livre trouvé
+        return redirect(url_for('Readfiche2', post_id=livres[0][0]))  # Redirige vers la fiche du livre
+
+    else:
+        # Si aucun livre n'est trouvé, rediriger vers une page de résultats vides ou afficher un message d'erreur
+        return redirect('/consultation_livre/')  # Par exemple, une page indiquant qu'aucun livre n'a été trouvé
+
 
                                                                                                                                        
 if __name__ == "__main__":
