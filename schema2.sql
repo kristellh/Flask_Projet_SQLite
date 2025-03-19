@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS livres;
+CREATE TABLE livres (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    titre TEXT NOT NULL,
+    auteur TEXT NOT NULL,
+    date_pret TEXT NOT NULL,
+  utilisateur_pret TEXT NOT NULL
+);
