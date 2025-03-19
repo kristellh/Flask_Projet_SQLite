@@ -4,24 +4,24 @@ CREATE TABLE livres (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     titre TEXT NOT NULL,
     auteur TEXT NOT NULL,
-    pret TEXT NOT NULL,
+    pret TEXT NOT NULL
 );
+
 DROP TABLE IF EXISTS stock;
 CREATE TABLE stock (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     titre TEXT NOT NULL,
     auteur TEXT NOT NULL,
-    quantite_en_stock NUMERIC NOT NULL,
-  
+    quantite_en_stock NUMERIC NOT NULL
 );
+
 DROP TABLE IF EXISTS pret;
 CREATE TABLE pret (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     titre TEXT NOT NULL,
     auteur TEXT NOT NULL,
-    date_pret TEXT NOT NULL,
-  utilisateur_pret TEXT NOT NULL
-  
+    date_pret DATE NOT NULL,  -- Change ici pour le type DATE
+    utilisateur_pret TEXT NOT NULL
 );
