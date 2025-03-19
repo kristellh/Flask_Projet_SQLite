@@ -88,7 +88,8 @@ def formulaire_livre():
 
 @app.route('/supprimer_livre', methods=['GET'])
 def supprimer_livre():
-    return render_template('supprimer_livre.html') # afficher le formulaire
+    return render_template('supprimer_livre.html')  # afficher le formulaire
+# afficher le formulaire
 
 @app.route('/enregistrer_client', methods=['POST'])
 def enregistrer_client():
