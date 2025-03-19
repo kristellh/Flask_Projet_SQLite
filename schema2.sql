@@ -25,3 +25,11 @@ CREATE TABLE pret (
     date_pret DATE NOT NULL,  -- Change ici pour le type DATE
     utilisateur_pret TEXT NOT NULL
 );
+
+CREATE TABLE utilisateurs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    mot_de_passe TEXT NOT NULL,
+    role TEXT DEFAULT 'utilisateur'
+);
