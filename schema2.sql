@@ -21,7 +21,7 @@ CREATE TABLE pret (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     titre TEXT NOT NULL,
     auteur TEXT NOT NULL,
-    date_pret DateTime NOT NULL,
+    date_pret Date NOT NULL,
   utilisateur_pret TEXT NOT NULL
   
 );
