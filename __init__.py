@@ -281,11 +281,10 @@ def ajouter_utilisateur():
         conn = sqlite3.connect('database2.db')
         cursor = conn.cursor()
 
-        # Hacher le mot de passe avant de le stocker (sécurisé)
-        hashed_password = hashlib.sha256(mot_de_passe.encode()).hexdigest()
+
 
         cursor.execute('INSERT INTO utilisateurs (nom, email, mot_de_passe, role) VALUES (?, ?, ?, ?)', 
-                       (nom, email, hashed_password, role))
+                       (nom, email, password, role))
         conn.commit()
         conn.close()
 
