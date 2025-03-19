@@ -91,6 +91,10 @@ def supprimer_livre():
     return render_template('supprimer_livre.html')  # afficher le formulaire
 # afficher le formulaire
 
+@app.route('/supprimer_livre', methods=['GET'])
+def rechercher_livre():
+    return render_template('rechercher_livre.html')
+
 @app.route('/enregistrer_client', methods=['POST'])
 def enregistrer_client():
     nom = request.form['nom']
@@ -144,7 +148,27 @@ def supprimer_livre_post():
     # Rediriger vers la page de consultation après la suppression
     return redirect('/consultation_livre/')
 
+@app.route('/recherche_livre', methods=['POST'])
+def rechercher_livre_post():
+    titre = request.form['titre']
+    auteur = request.form['auteur']
+    id = request.form['id']
 
+    # Connexion à la base de données
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
+
+    # Suppression en fonction du titre, auteur ou id
+    if id:  # Si un id est fourni, supprimer par id
+        cursor.execute('SELECT FROM livres WHERE id = ?', (id,))
+    else:  # Sinon, supprimer par titre et auteur
+        cursor.execute('SELECT FROM livres WHERE titre = ? AND auteur = ?', (titre, auteur))
+
+    conn.commit()
+    conn.close()
+
+    # Rediriger vers la page de consultation après la suppression
+    return redirect('/consultation_livre/')
 
                                                                                                                                        
 if __name__ == "__main__":
