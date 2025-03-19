@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'enregistrement d'un nouveau utilisateur</title>
+    <style>
+        /* Corps de la page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Titre du formulaire */
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Formulaire */
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        /* Labels et inputs */
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        /* Bouton d'enregistrement */
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enregistrer un nouveau utilisateur</h1>
+    <form action="./ajout_utilisateur" method="POST">
+        <label for="nom"> Nom :</label>
+        <input type="text" id="nom" name="nom" required><br><br>
+        <label for="email">Email :</label>
+        <input type="text" id="email" name="email" required><br><br>
+      <label for="mot_de_passe">mot de passe :</label>
+        <input type="text" id="mot_de_passe" name="mot_de_passe" required><br><br>
+        <button type="submit">Enregistrer</button>
+    </form>
+</body>
+</html>
