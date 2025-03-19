@@ -8,8 +8,8 @@ with open('schema2.sql') as f:
 
 cur = connection.cursor()
 
-cur.execute("INSERT INTO livres (titre, auteur, date_pret,utilisateur_pret) VALUES (?, ?, ?,?,?)",('A la recherche du temps perdu', 'Marcel Proust', ' ', ''))
-cur.execute("INSERT INTO livres (titre, auteur, date_pret,utilisateur_pret) VALUES (?, ?, ?,?,?)",('Notre dame de Paris', 'Victor Hugo', ' ', ''))
+cur.execute("INSERT INTO livres (titre, auteur, date_pret,utilisateur_pret) VALUES (?, ?, ?,?)",('A la recherche du temps perdu', 'Marcel Proust',' ',''))
+cur.execute("INSERT INTO livres (titre, auteur, date_pret,utilisateur_pret) VALUES (?, ?, ?,?)",('Notre dame de Paris', 'Victor Hugo',' ',''))
 
 connection.commit()
 connection.close()
