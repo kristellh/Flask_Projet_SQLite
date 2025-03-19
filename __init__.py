@@ -148,26 +148,7 @@ def supprimer_livre_post():
     # Rediriger vers la page de consultation après la suppression
     return redirect('/consultation_livre/')
 
-@app.route('/recherche_livre', methods=['POST'])
-def rechercher_livre_post():
-    titre = request.form['titre']
-    auteur = request.form['auteur']
-    id = request.form['id']
 
-    # Connexion à la base de données
-    conn = sqlite3.connect('database2.db')
-    cursor = conn.cursor()
-
-    # Si un ID est fourni, recherche par ID
-    if id:
-        cursor.execute('SELECT * FROM livres WHERE id = ?', (id,))
-    else:  # Recherche par titre et auteur
-        cursor.execute('SELECT * FROM livres WHERE titre = ? AND auteur = ?', (titre, auteur))
-
-    # Récupérer les résultats de la requête
-    livres = cursor.fetchall()
-    conn.close()
-        return redirect('/consultation_livre/')  # Par exemple, une page indiquant qu'aucun livre n'a été trouvé
 
 
                                                                                                                                        
