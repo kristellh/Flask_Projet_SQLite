@@ -93,7 +93,7 @@ def supprimer_livre():
 
 @app.route('/rechercher_livre', methods=['GET'])
 def rechercher_livre():
-    return render_template('rechercher_livre.html')
+    return render_template('recherche_livre.html')
 
 @app.route('/enregistrer_client', methods=['POST'])
 def enregistrer_client():
