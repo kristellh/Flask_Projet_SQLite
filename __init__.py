@@ -126,28 +126,7 @@ def enregistrer_livre():
     conn.close()
     return redirect('/consultation_livre/')  # Rediriger vers la page d'accueil
 
-@app.route('/recherche_livre', methods=['POST'])
-def rechercher_livre_post():
-    titre = request.form['titre']
-    auteur = request.form['auteur']
-    id = request.form['id']
 
-    # Connexion à la base de données
-    conn = sqlite3.connect('database2.db')
-    cursor = conn.cursor()
-
-   
-    if id:  # Si un id est fourni, supprimer par id
-        cursor.execute('SELECT FROM livres WHERE id = ?', (id,))
-            return redirect(f'/consultation_livre/{livre[0]}')
-    else:  # Sinon, supprimer par titre et auteur
-        cursor.execute('SELECT FROM livres WHERE titre = ? AND auteur = ?', (titre, auteur))
-            return redirect(f'/consultation_livre/{livre[0]}')
-  
-      
-    conn.commit()
-    conn.close()
-        return redirect(f'/consultation_livre/{livre[0]}')
 
 @app.route('/supprimer_livre', methods=['POST'])
 def supprimer_livre_post():
