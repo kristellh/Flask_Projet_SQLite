@@ -169,7 +169,7 @@ def rechercher_livre_post():
     # Recherche en fonction de l'id
     if id:  # Si un id est fourni
         cursor.execute('SELECT * FROM livres WHERE id = ?', (id,))
-        livre = cursor.fetchone()  # Récupère le livre correspondant
+        livre = cursor.fetchone()  
         if livre:
            
             return redirect(f'/consultation_livre/{livre[0]}') 
@@ -193,10 +193,6 @@ def rechercher_livre_post():
 
     conn.commit()  
     conn.close()   
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
-                                                                                                                                       
+                                                                                                                                 
 if __name__ == "__main__":
   app.run(debug=True)
