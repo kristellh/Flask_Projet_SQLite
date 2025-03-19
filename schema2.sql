@@ -12,7 +12,7 @@ CREATE TABLE stock (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     titre TEXT NOT NULL,
     auteur TEXT NOT NULL,
-    quantite_en_stock Numeric NOT NULL,
+    quantite_en_stock NUMERIC NOT NULL,
   
 );
 DROP TABLE IF EXISTS pret;
