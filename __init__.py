@@ -151,6 +151,50 @@ def supprimer_livre_post():
     return redirect('/consultation_livre/')
 
 
+from flask import Flask, request, redirect
+import sqlite3
+
+app = Flask(__name__)
+
+@app.route('/recherche_livre', methods=['POST'])
+def rechercher_livre_post():
+    titre = request.form['titre']
+    auteur = request.form['auteur']
+    id = request.form['id']
+
+    # Connexion à la base de données
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
+
+    # Recherche en fonction de l'id
+    if id:  # Si un id est fourni
+        cursor.execute('SELECT * FROM livres WHERE id = ?', (id,))
+        livre = cursor.fetchone()  # Récupère le livre correspondant
+        if livre:
+           
+            return redirect(f'/consultation_livre/{livre[0]}') 
+        else:
+          
+            return redirect('/consultation_livre/')
+
+    elif titre and auteur:  
+        cursor.execute('SELECT * FROM livres WHERE titre = ? AND auteur = ?', (titre, auteur))
+        livre = cursor.fetchone() 
+        if livre:
+         
+            return redirect(f'/consultation_livre/{livre[0]}')  
+        else:
+       
+            return redirect('/consultation_livre/')
+    
+  
+    else:
+        return redirect('/consultation_livre/')
+
+    conn.commit()  
+    conn.close()   
+if __name__ == '__main__':
+    app.run(debug=True)
 
 
                                                                                                                                        
