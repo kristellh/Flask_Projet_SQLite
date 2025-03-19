@@ -185,8 +185,7 @@ def rechercher_livre_post():
   
     else:
         return redirect('/consultation_livre/')
-
-    conn.commit()  
+ 
     conn.close()   
                                                                                                                                  
 if __name__ == "__main__":
