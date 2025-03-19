@@ -121,18 +121,29 @@ def enregistrer_livre():
     conn.close()
     return redirect('/consultation_livre/')  # Rediriger vers la page d'accueil
 
-@app.route('/supprimer_livre/<int:id>', methods=['POST'])
-def supprimer_livre(id):
+@app.route('/supprimer_livre', methods=['POST'])
+def supprimer_livre():
+    titre = request.form['titre']
+    auteur = request.form['auteur']
+    # Optionnel si tu veux utiliser un 'id' en plus
+    id = request.form.get('id')
+
     # Connexion à la base de données
     conn = sqlite3.connect('database2.db')
     cursor = conn.cursor()
 
-    # Exécution de la requête SQL pour supprimer un livre par son ID
-    cursor.execute('DELETE FROM livres WHERE id = ?', (id,))
+    # Si tu veux supprimer par titre et auteur
+    cursor.execute('DELETE FROM livres WHERE titre = ? AND auteur = ?', (titre, auteur))
+    
+    # Si tu veux supprimer par id (décommenter l'exécution correspondante et commenter l'autre)
+    # cursor.execute('DELETE FROM livres WHERE id = ?', (id,))
+
     conn.commit()
     conn.close()
 
-    return redirect('/consultation_livre/')  # Redirige vers la page d'accueil après la suppression
+    # Rediriger vers la page de consultation après la suppression
+    return redirect('/consultation_livre/')
+
 
                                                                                                                                        
 if __name__ == "__main__":
