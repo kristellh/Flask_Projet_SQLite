@@ -167,15 +167,6 @@ def rechercher_livre_post():
     # Récupérer les résultats de la requête
     livres = cursor.fetchall()
     conn.close()
-
-    # Si des livres ont été trouvés, rediriger vers la fiche du premier livre trouvé
-    if livres:
-        # Supposons que tu veux rediriger vers la fiche du premier livre trouvé
-        # livres[0][0] fait référence à l'ID du premier livre trouvé
-        return redirect(url_for('Readfiche2', post_id=livres[0][0]))  # Redirige vers la fiche du livre
-
-    else:
-        # Si aucun livre n'est trouvé, rediriger vers une page de résultats vides ou afficher un message d'erreur
         return redirect('/consultation_livre/')  # Par exemple, une page indiquant qu'aucun livre n'a été trouvé
 
 
