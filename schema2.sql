@@ -4,8 +4,6 @@ CREATE TABLE livres (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     titre TEXT NOT NULL,
     auteur TEXT NOT NULL,
-    date_pret DateTime NOT NULL,
-  utilisateur_pret TEXT NOT NULL
 );
 DROP TABLE IF EXISTS stock;
 CREATE TABLE stock (
@@ -13,7 +11,16 @@ CREATE TABLE stock (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     titre TEXT NOT NULL,
     auteur TEXT NOT NULL,
-    Quantite_en_stock Numeric NOT NULL,
+    quantite_en_stock Numeric NOT NULL,
   
 );
-
+DROP TABLE IF EXISTS pret;
+CREATE TABLE pret (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    titre TEXT NOT NULL,
+    auteur TEXT NOT NULL,
+    date_pret DateTime NOT NULL,
+  utilisateur_pret TEXT NOT NULL
+  
+);
