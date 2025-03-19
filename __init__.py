@@ -167,7 +167,7 @@ def rechercher_livre_post():
         livre = cursor.fetchone()  
         if livre:
            
-            return redirect(f'/consultation_livre/{livre[0]}') 
+            return redirect(f'/fiche_livre/{livre[0]}') 
         else:
           
             return redirect('/consultation_livre/')
@@ -177,7 +177,7 @@ def rechercher_livre_post():
         livre = cursor.fetchone() 
         if livre:
          
-            return redirect(f'/consultation_livre/{livre[0]}')  
+            return redirect(f'/fiche_livre/{livre[0]}')  
         else:
        
             return redirect('/consultation_livre/')
