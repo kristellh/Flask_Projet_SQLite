@@ -151,11 +151,6 @@ def supprimer_livre_post():
     return redirect('/consultation_livre/')
 
 
-from flask import Flask, request, redirect
-import sqlite3
-
-app = Flask(__name__)
-
 @app.route('/recherche_livre', methods=['POST'])
 def rechercher_livre_post():
     titre = request.form['titre']
@@ -167,7 +162,7 @@ def rechercher_livre_post():
     cursor = conn.cursor()
 
     # Recherche en fonction de l'id
-    if id:  # Si un id est fourni
+    if id:  
         cursor.execute('SELECT * FROM livres WHERE id = ?', (id,))
         livre = cursor.fetchone()  
         if livre:
