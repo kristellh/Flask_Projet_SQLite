@@ -91,7 +91,7 @@ def supprimer_livre():
     return render_template('supprimer_livre.html')  # afficher le formulaire
 # afficher le formulaire
 
-@app.route('/rechercher_livre', methods=['GET'])
+@app.route('/recherche_livre', methods=['GET'])
 def rechercher_livre():
     return render_template('recherche_livre.html')
 
