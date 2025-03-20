@@ -190,6 +190,41 @@ def rechercher_livre_post():
  
     conn.close()  
 
+@app.route('/fiche_utilisateur/<int:post_id>')
+def Readfiche3(post_id):
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM utilisateur WHERE id = ?', (post_id,))
+    data = cursor.fetchall()
+    conn.close()
+    # Rendre le template HTML et transmettre les données
+    return render_template('read_data3.html', data=data)
+    
+
+
+@app.route('/consultation_utilisateur/')
+def ReadBDD2():
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM utilisateur;')
+    data = cursor.fetchall()
+    conn.close()
+    return render_template('read_data2.html', data=data)
+
+@app.route('/enregistrer_utilisateur', methods=['GET'])
+def formulaire_utilisateur():
+    return render_template('ajout_utilisateur.html') 
+    
+
+
+@app.route('/supprimer_utilsateur', methods=['GET'])
+def supprimer_utilisateur():
+    return render_template('supprimer_utilisateur.html')  # afficher le formulaire
+# afficher le formulaire
+
+@app.route('/recherche_utilisateur', methods=['GET'])
+def rechercher_utilisateur():
+    return render_template('recherche_utilisateur.html')
 
 
 
