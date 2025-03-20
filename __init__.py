@@ -239,8 +239,10 @@ def supprimer_utilisateur():
 def rechercher_utilisateur():
     return render_template('recherche_utilisateur.html')
 
-@app.route('/supprimer_utilisateur', methods=['POST'])
-def supprimer_utilisateur_post():
+
+
+ @app.route('/recherche_utilisateur', methods=['POST'])
+def rechercher_utilisateur_post():
     nom = request.form['nom']
     email = request.form['email']
     id = request.form['id']
@@ -249,21 +251,31 @@ def supprimer_utilisateur_post():
     conn = sqlite3.connect('database2.db')
     cursor = conn.cursor()
 
-    # Suppression en fonction du titre, auteur ou id
-    if id:  # Si un id est fourni, supprimer par id
-        cursor.execute('DELETE FROM utilisateur WHERE id = ?', (id,))
-    else:  # Sinon, supprimer par titre et auteur
-        cursor.execute('DELETE FROM utilisateur WHERE nom = ? AND email = ?', (nom, email))
+    # Recherche en fonction de l'id
+    if id:  
+        cursor.execute('SELECT * FROM utilisateur WHERE id = ?', (id,))
+       utilisateur = cursor.fetchone()  
+        if utilisateur:
+           
+            return redirect(f'/fiche_utilisateur/{utilisateur[0]}') 
+        else:
+          
+            return redirect('/consultation_utilisateur/')
 
-    conn.commit()
+    elif nom and email:  
+        cursor.execute('SELECT * FROM utilisateur WHERE nom = ? AND email = ?', (nom, email))
+       utilisateur = cursor.fetchone() 
+        if utilisateur:
+         
+            return redirect(f'/fiche_utilisateur/{utilisateur[0]}')  
+        else:
+       
+            return redirect('/consultation_utilisateur/')
+    else:
+        return redirect('/consultation_utilisateur/')
+
+
     conn.close()
-
-    # Rediriger vers la page de consultation après la suppression
-    return redirect('/consultation_utilisateur/')
-
- 
-
-
 
 if __name__ == "__main__":
   app.run(debug=True)
