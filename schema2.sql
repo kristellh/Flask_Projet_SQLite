@@ -26,7 +26,7 @@ CREATE TABLE pret (
     utilisateur_pret TEXT NOT NULL
 );
 
-CREATE TABLE utilisateurs (
+CREATE TABLE utilisateur (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
