@@ -8,21 +8,12 @@ with open('schema2.sql') as f:
 cur = connection.cursor()
 
 # Insérer dans la table livres
-cur.execute("INSERT INTO livres (id, created, titre, auteur, pret) VALUES (?, ?, ?, ?, ?)",
-            (1, 190325, 'A la recherche du temps perdu', 'Marcel Proust', 'disponible'))
-cur.execute("INSERT INTO livres (id, created, titre, auteur, pret) VALUES (?, ?, ?, ?, ?)",
-            (2, 190325, 'Notre dame de Paris', 'Victor Hugo', 'disponible'))
+cur.execute("INSERT INTO livres (id, created, titre, auteur, pret,stock) VALUES (?, ?, ?, ?, ?,?)",
+            (1, 190325, 'A la recherche du temps perdu', 'Marcel Proust', 'disponible',3))
+cur.execute("INSERT INTO livres (id, created, titre, auteur, pret,stock) VALUES (?, ?, ?, ?, ?,?)",
+            (2, 190325, 'Notre dame de Paris', 'Victor Hugo', 'disponible',3))
 
 # Insérer dans la table stock
-cur.execute("SELECT id FROM livres WHERE titre = ? AND auteur = ?", ('A la recherche du temps perdu', 'Marcel Proust'))
-livre1_id = cur.fetchone()[0]
-
-cur.execute("SELECT id FROM livres WHERE titre = ? AND auteur = ?", ('Notre dame de Paris', 'Victor Hugo'))
-livre2_id = cur.fetchone()[0]
-
-# Insérer des données de stock en utilisant les IDs des livres
-cur.execute("INSERT INTO stock (livre_id, quantite_en_stock) VALUES (?, ?)", (livre1_id, 2))
-cur.execute("INSERT INTO stock (livre_id, quantite_en_stock) VALUES (?, ?)", (livre2_id, 3))
 
 # Insérer dans la table pret avec la date correctement formatée
 cur.execute("INSERT INTO pret (id, created, titre, auteur, date_pret, utilisateur_pret) VALUES (?, ?, ?, ?, ?, ?)",
