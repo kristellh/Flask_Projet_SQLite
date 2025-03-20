@@ -241,41 +241,5 @@ def rechercher_utilisateur():
 
 
 
- @app.route('/recherche_utilisateur', methods=['POST'])
-def rechercher_utilisateur_post():
-    nom = request.form['nom']
-    email = request.form['email']
-    id = request.form['id']
-
-    # Connexion à la base de données
-    conn = sqlite3.connect('database2.db')
-    cursor = conn.cursor()
-
-    # Recherche en fonction de l'id
-    if id:  
-        cursor.execute('SELECT * FROM utilisateur WHERE id = ?', (id,))
-       utilisateur = cursor.fetchone()  
-        if utilisateur:
-           
-            return redirect(f'/fiche_utilisateur/{utilisateur[0]}') 
-        else:
-          
-            return redirect('/consultation_utilisateur/')
-
-    elif nom and email:  
-        cursor.execute('SELECT * FROM utilisateur WHERE nom = ? AND email = ?', (nom, email))
-       utilisateur = cursor.fetchone() 
-        if utilisateur:
-         
-            return redirect(f'/fiche_utilisateur/{utilisateur[0]}')  
-        else:
-       
-            return redirect('/consultation_utilisateur/')
-    else:
-        return redirect('/consultation_utilisateur/')
-
-
-    conn.close()
-
 if __name__ == "__main__":
   app.run(debug=True)
