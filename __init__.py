@@ -322,7 +322,7 @@ def liste_livres():
         return "Aucun livre trouvé dans le stock.", 404
 
     # Retourner la page HTML avec la liste des livres
-    return render_template('liste_livres.html', livres=livres)
+    return render_template('liste_livre.html', livres=livres)
 
 
 @app.route('/mettre_a_jour_stock', methods=['POST'])
