@@ -28,7 +28,7 @@ cur.execute("INSERT INTO pret (id, created, titre, auteur, date_pret, utilisateu
 cur.execute ("INSERT INTO utilisateur (id,nom, email, mot_de_passe, role) VALUES (?,?, ?, ?, ?)", 
                        (1,'DUPONT', 'dupont@at.fr', 'password', 'utilisateur'))
 cur.execute ("INSERT INTO utilisateur (id,nom, email, mot_de_passe, role) VALUES (?,?, ?, ?, ?)", 
-                       (2,'DUPO', 'dupo@at.fr', 'password', 'utilisateur'))
+                       (2,'DUPO', 'dupo@at.fr', 'passwords', 'utilisateur'))
 
 connection.commit()
 connection.close()
