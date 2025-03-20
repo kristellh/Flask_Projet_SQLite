@@ -23,7 +23,7 @@ CREATE TABLE pret (
     date_pret DATE NOT NULL,  -- Change ici pour le type DATE
     utilisateur_pret TEXT NOT NULL
 );
-
+DROP TABLE IF EXISTS utilisateur;
 CREATE TABLE utilisateur (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT NOT NULL,
