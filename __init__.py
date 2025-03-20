@@ -300,6 +300,31 @@ def rechercher_utilisateur_post():
 def liste_livre():
     return render_template('liste_livre.html') 
 
+@app.route('/liste_livres', methods=['GET'])
+def liste_livres():
+    # Connexion à la base de données
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
+
+    # Récupérer la liste des livres avec leur stock
+    cursor.execute("""
+        SELECT livre.id, livre.titre, livre.auteur, stock.quantite_en_stock
+        FROM livre
+        JOIN stock ON livre.id = stock.id
+    """)
+    livre = cursor.fetchall()
+
+    # Fermer la connexion
+    conn.close()
+
+    # Si aucun livre n'est trouvé, renvoyer un message
+    if not livre:
+        return "Aucun livre trouvé dans le stock.", 404
+
+    # Retourner la page HTML avec la liste des livres
+    return render_template('liste_livres.html', livres=livres)
+
+
 @app.route('/mettre_a_jour_stock', methods=['POST'])
 def mettre_a_jour_stock():
     livre_id = request.form['livre_id']
