@@ -203,13 +203,13 @@ def Readfiche3(post_id):
 
 
 @app.route('/consultation_utilisateur/')
-def ReadBDD2():
+def ReadBDD3():
     conn = sqlite3.connect('database2.db')
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM utilisateur;')
     data = cursor.fetchall()
     conn.close()
-    return render_template('read_data2.html', data=data)
+    return render_template('read_data3.html', data=data)
 
 @app.route('/enregistrer_utilisateur', methods=['GET'])
 def formulaire_utilisateur():
