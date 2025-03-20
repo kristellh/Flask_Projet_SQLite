@@ -226,7 +226,7 @@ def formulaire_utilisateur():
     cursor = conn.cursor()
 
     # Exécution de la requête SQL pour insérer un nouveau client
-    cursor.execute('INSERT INTO utilisateur (nom,email, mot_de_passe) VALUES (?,?,?)', (nom,email, mot_de_passe))
+    cursor.execute('INSERT INTO utilisateur (nom,email,mot_de_passe) VALUES (?,?,?)', (nom,email, mot_de_passe,'utilisateur'))
     conn.commit()
     conn.close()
     return redirect('/consultation_utilisateur/')
