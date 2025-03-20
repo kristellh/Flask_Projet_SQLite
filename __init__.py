@@ -300,7 +300,7 @@ def rechercher_utilisateur_post():
 def liste_livre():
     return render_template('liste_livre.html') 
 
-@app.route('/liste_livres', methods=['GET'])
+@app.route('/liste_livre', methods=['GET'])
 def liste_livres():
     # Connexion à la base de données
     conn = sqlite3.connect('database2.db')
