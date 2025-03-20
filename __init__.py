@@ -119,13 +119,14 @@ def enregistrer_client():
 def enregistrer_livre():
     titre = request.form['titre']
     auteur = request.form['auteur']
+    stock = request.form['stock']
 
     # Connexion à la base de données
     conn = sqlite3.connect('database2.db')
     cursor = conn.cursor()
 
     # Exécution de la requête SQL pour insérer un nouveau client
-    cursor.execute('INSERT INTO livres (created,titre, auteur,pret) VALUES (?,?,?, ?)', (190325,titre, auteur,"disponible"))
+    cursor.execute('INSERT INTO livres (created,titre, auteur,pret,stock) VALUES (?,?,?, ?)', (190325,titre, auteur,"disponible",stock))
     conn.commit()
     conn.close()
     return redirect('/consultation_livre/')  # Rediriger vers la page d'accueil
@@ -296,34 +297,6 @@ def rechercher_utilisateur_post():
         return redirect('/consultation_utilisateur/')
  
     conn.close() 
-@app.route('/liste_livre', methods=['GET'])
-def liste_livre():
-    return render_template('liste_livre.html') 
-
-@app.route('/liste_livre', methods=['GET'])
-def liste_livres():
-    # Connexion à la base de données
-    conn = sqlite3.connect('database2.db')
-    cursor = conn.cursor()
-
-    # Récupérer la liste des livres avec leur stock
-    cursor.execute("""
-        SELECT livre.id, livre.titre, livre.auteur, stock.quantite_en_stock
-        FROM livres
-        JOIN stock ON livre.id = stock.id
-    """)
-    livre = cursor.fetchall()
-
-    # Fermer la connexion
-    conn.close()
-
-    # Si aucun livre n'est trouvé, renvoyer un message
-    if not livres:
-        return "Aucun livre trouvé dans le stock.", 404
-
-    # Retourner la page HTML avec la liste des livres
-    return render_template('liste_livre.html', livres=livres)
-
 
 @app.route('/mettre_a_jour_stock', methods=['POST'])
 def mettre_a_jour_stock():
