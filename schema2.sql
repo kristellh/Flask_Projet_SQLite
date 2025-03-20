@@ -6,14 +6,12 @@ CREATE TABLE livres (
     auteur TEXT NOT NULL,
     pret TEXT NOT NULL
 );
-
 DROP TABLE IF EXISTS stock;
 CREATE TABLE stock (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    titre TEXT NOT NULL,
-    auteur TEXT NOT NULL,
-    quantite_en_stock NUMERIC NOT NULL
+    livre_id INTEGER,
+    quantite_en_stock INTEGER,
+    FOREIGN KEY(livre_id) REFERENCES livres(id)
 );
 
 DROP TABLE IF EXISTS pret;
