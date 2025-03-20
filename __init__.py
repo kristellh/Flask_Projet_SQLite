@@ -298,6 +298,10 @@ def rechercher_utilisateur_post():
  
     conn.close() 
 
+@app.route('/mettre_a_jour_stock', methods=['GET'])
+def formulaire_stock():
+    return render_template('stock.html') 
+
 @app.route('/mettre_a_jour_stock', methods=['POST'])
 def mettre_a_jour_stock():
     livre_id = request.form['livre_id']
@@ -322,9 +326,9 @@ def mettre_a_jour_stock():
     # Commit et fermeture de la connexion
     conn.commit()
     conn.close()
+    
+     return redirect('/consultation_livre/') 
 
-    # Rediriger vers la page des livres après la mise à jour
-    return redirect('/liste_livre')
 
 
 if __name__ == "__main__":
