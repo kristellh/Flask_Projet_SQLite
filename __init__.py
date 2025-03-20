@@ -219,13 +219,14 @@ def formulaire_utilisateur():
 def formulaire_utilisateur():
     nom = request.form['nom']
     email = request.form['email']
+    mot_de_passe = request.form['mot_de_passe']
 
     # Connexion à la base de données
     conn = sqlite3.connect('database2.db')
     cursor = conn.cursor()
 
     # Exécution de la requête SQL pour insérer un nouveau client
-    cursor.execute('INSERT INTO utilisateur (nom,email) VALUES (?,?)', (nom,email))
+    cursor.execute('INSERT INTO utilisateur (nom,email, mot_de_passe) VALUES (?,?,?)', (nom,email, mot_de_passe))
     conn.commit()
     conn.close()
     return redirect('/consultation_utilisateur/')
