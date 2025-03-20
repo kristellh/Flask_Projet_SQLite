@@ -276,7 +276,7 @@ def rechercher_utilisateur_post():
     if id:  
         cursor.execute('SELECT * FROM utilisateur WHERE id = ?', (id,))
         livre = cursor.fetchone()  
-        if livre:
+        if utilisateur:
            
             return redirect(f'/fiche_utilisateur/{utilisateur[0]}') 
         else:
@@ -286,7 +286,7 @@ def rechercher_utilisateur_post():
     elif titre and auteur:  
         cursor.execute('SELECT * FROM utilisateur WHERE nom = ? AND email = ?', (nom, email))
         livre = cursor.fetchone() 
-        if livre:
+        if utilisateur:
          
             return redirect(f'/fiche_utilisateur/{utilisateur[0]}')  
         else:
@@ -308,7 +308,7 @@ def liste_livres():
 
     # Récupérer la liste des livres avec leur stock
     cursor.execute("""
-        SELECT livres.id, livres.titre, livres.auteur, stock.quantite_en_stock
+        SELECT livre.id, livre.titre, livre.auteur, stock.quantite_en_stock
         FROM livres
         JOIN stock ON livre.id = stock.id
     """)
