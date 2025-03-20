@@ -4,7 +4,8 @@ CREATE TABLE livres (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     titre TEXT NOT NULL,
     auteur TEXT NOT NULL,
-    pret TEXT NOT NULL
+    pret TEXT NOT NULL,
+    quantite_en_stock INTEGER
 );
 DROP TABLE IF EXISTS stock;
 CREATE TABLE stock (
