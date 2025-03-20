@@ -308,8 +308,8 @@ def liste_livres():
 
     # Récupérer la liste des livres avec leur stock
     cursor.execute("""
-        SELECT livre.id, livre.titre, livre.auteur, stock.quantite_en_stock
-        FROM livre
+        SELECT livres.id, livres.titre, livres.auteur, stock.quantite_en_stock
+        FROM livres
         JOIN stock ON livre.id = stock.id
     """)
     livre = cursor.fetchall()
@@ -318,7 +318,7 @@ def liste_livres():
     conn.close()
 
     # Si aucun livre n'est trouvé, renvoyer un message
-    if not livre:
+    if not livres:
         return "Aucun livre trouvé dans le stock.", 404
 
     # Retourner la page HTML avec la liste des livres
