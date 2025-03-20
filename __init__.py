@@ -237,6 +237,27 @@ def formulaire_utilisateur_post():
 def supprimer_utilisateur():
     return render_template('supprimer_utilisateur.html')  # afficher le formulaire
 # afficher le formulaire
+@app.route('/supprimer_utilisateur', methods=['POST'])
+def supprimer_utilisateur_post():
+   nom = request.form['nom']
+    email= request.form['email']
+    id = request.form['id']
+
+    # Connexion à la base de données
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
+
+    # Suppression en fonction du titre, auteur ou id
+    if id:  # Si un id est fourni, supprimer par id
+        cursor.execute('DELETE FROM utilisateur WHERE id = ?', (id,))
+    else:  # Sinon, supprimer par titre et auteur
+        cursor.execute('DELETE FROM utilisateur WHERE nom = ? AND email = ?', (nom, email))
+
+    conn.commit()
+    conn.close()
+
+    # Rediriger vers la page de consultation après la suppression
+    return redirect('/consultation_utilisateur/')
 
 @app.route('/recherche_utilisateur', methods=['GET'])
 def rechercher_utilisateur():
