@@ -239,7 +239,7 @@ def supprimer_utilisateur():
 # afficher le formulaire
 @app.route('/supprimer_utilisateur', methods=['POST'])
 def supprimer_utilisateur_post():
-   nom = request.form['nom']
+    nom = request.form['nom']
     email= request.form['email']
     id = request.form['id']
 
