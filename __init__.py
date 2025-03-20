@@ -213,7 +213,7 @@ def ReadBDD3():
 
 @app.route('/enregistrer_utilisateur', methods=['GET'])
 def formulaire_utilisateur():
-    return render_template('ajout_utilisateur.html') 
+    return render_template('enregistrer_utilisateur.html') 
     
 @app.route('/enregistrer_utilisateur', methods=['POST'])
 def formulaire_utilisateur():
@@ -226,7 +226,7 @@ def formulaire_utilisateur():
     cursor = conn.cursor()
 
     # Exécution de la requête SQL pour insérer un nouveau client
-    cursor.execute('INSERT INTO utilisateur (nom,email,mot_de_passe) VALUES (?,?,?)', (nom,email, mot_de_passe,'utilisateur'))
+    cursor.execute('INSERT INTO utilisateur (nom,email,mot_de_passe,role) VALUES (?,?,?,?)', (nom,email, mot_de_passe,'utilisateur'))
     conn.commit()
     conn.close()
     return redirect('/consultation_utilisateur/')
