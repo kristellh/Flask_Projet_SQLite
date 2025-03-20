@@ -296,6 +296,37 @@ def rechercher_utilisateur_post():
         return redirect('/consultation_utilisateur/')
  
     conn.close() 
+@app.route('/liste_livre', methods=['GET'])
+def liste_livre():
+    return render_template('liste_livre.html') 
+
+@app.route('/mettre_a_jour_stock', methods=['POST'])
+def mettre_a_jour_stock():
+    livre_id = request.form['livre_id']
+    quantite = int(request.form['quantite'])
+
+    # Connexion à la base de données
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
+
+    # Vérifier si le livre existe dans la table stock
+    cursor.execute("SELECT quantite_en_stock FROM stock WHERE livre_id = ?", (livre_id,))
+    stock = cursor.fetchone()
+
+    if stock is None:
+        # Si le livre n'est pas encore dans le stock, ajouter une nouvelle entrée
+        cursor.execute("INSERT INTO stock (livre_id, quantite_en_stock) VALUES (?, ?)", (livre_id, quantite))
+    else:
+        # Si le livre est déjà dans le stock, mettre à jour la quantité
+        new_quantite = stock[0] + quantite  # Ajoute la quantité spécifiée
+        cursor.execute("UPDATE stock SET quantite_en_stock = ? WHERE livre_id = ?", (new_quantite, livre_id))
+
+    # Commit et fermeture de la connexion
+    conn.commit()
+    conn.close()
+
+    # Rediriger vers la page des livres après la mise à jour
+    return redirect('/liste_livre')
 
 
 if __name__ == "__main__":
