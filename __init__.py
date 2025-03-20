@@ -264,8 +264,8 @@ def supprimer_utilisateur_post():
 
 @app.route('/recherche_utilisateur', methods=['POST'])
 def rechercher_utilisateur_post():
-    titre = request.form['nom']
-    auteur = request.form['email']
+    nom = request.form['nom']
+    email = request.form['email']
     id = request.form['id']
 
     # Connexion à la base de données
@@ -275,7 +275,7 @@ def rechercher_utilisateur_post():
     # Recherche en fonction de l'id
     if id:  
         cursor.execute('SELECT * FROM utilisateur WHERE id = ?', (id,))
-        livre = cursor.fetchone()  
+       utilisateur = cursor.fetchone()  
         if utilisateur:
            
             return redirect(f'/fiche_utilisateur/{utilisateur[0]}') 
@@ -286,7 +286,7 @@ def rechercher_utilisateur_post():
     elif nom and email:  
         cursor.execute('SELECT * FROM utilisateur WHERE nom = ? AND email = ?', (nom, email))
        utilisateur = cursor.fetchone() 
-        if livre:
+        if utilisateur:
          
             return redirect(f'/fiche_utilisateur/{utilisateur[0]}')  
         else:
