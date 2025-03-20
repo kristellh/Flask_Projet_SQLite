@@ -215,6 +215,22 @@ def ReadBDD3():
 def formulaire_utilisateur():
     return render_template('enregistrer_utilisateur.html') 
     
+@app.route('/enregistrer_utilisateur', methods=['POST'])
+def formulaire_utilisateur():
+    nom = request.form['nom']
+    email = request.form['email']
+    mot_de_passe = request.form['mot_de_passe']
+
+    # Connexion à la base de données
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
+
+    # Exécution de la requête SQL pour insérer un nouveau utilisateur
+    cursor.execute('INSERT INTO utilisateur (nom,email,mot_de_passe,role) VALUES (?,?,?,?)', 
+                   (nom, email,mot_de_passe,'utilisateur'))
+    conn.commit()
+    conn.close()
+    return redirect('/consultation_utilisateur/')
 
 
 @app.route('/supprimer_utilisateur', methods=['GET'])
