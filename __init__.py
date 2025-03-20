@@ -215,9 +215,22 @@ def ReadBDD3():
 def formulaire_utilisateur():
     return render_template('ajout_utilisateur.html') 
     
+@app.route('/enregistrer_utilisateur', methods=['POST'])
+def formulaire_utilisateur():
+    nom = request.form['nom']
+    email = request.form['email']
 
+    # Connexion à la base de données
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
 
-@app.route('/supprimer_utilsateur', methods=['GET'])
+    # Exécution de la requête SQL pour insérer un nouveau client
+    cursor.execute('INSERT INTO utilisateur (nom,email) VALUES (?,?)', (nom,email))
+    conn.commit()
+    conn.close()
+    return redirect('/consultation_utilisateur/')
+
+@app.route('/supprimer_utilisateur', methods=['GET'])
 def supprimer_utilisateur():
     return render_template('supprimer_utilisateur.html')  # afficher le formulaire
 # afficher le formulaire
@@ -226,6 +239,63 @@ def supprimer_utilisateur():
 def rechercher_utilisateur():
     return render_template('recherche_utilisateur.html')
 
+@app.route('/supprimer_utilisateur', methods=['POST'])
+def supprimer_utilisateur_post():
+    nom = request.form['nom']
+    email = request.form['email']
+    id = request.form['id']
+
+    # Connexion à la base de données
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
+
+    # Suppression en fonction du titre, auteur ou id
+    if id:  # Si un id est fourni, supprimer par id
+        cursor.execute('DELETE FROM utilisateur WHERE id = ?', (id,))
+    else:  # Sinon, supprimer par titre et auteur
+        cursor.execute('DELETE FROM utilisateur WHERE nom = ? AND email = ?', (nom, email))
+
+    conn.commit()
+    conn.close()
+
+    # Rediriger vers la page de consultation après la suppression
+    return redirect('/consultation_utilisateur/')
+
+
+@app.route('/recherche_utilisateur', methods=['POST'])
+def rechercher_utilisateur_post():
+    titre = request.form['nom']
+    auteur = request.form['email']
+    id = request.form['id']
+
+    # Connexion à la base de données
+    conn = sqlite3.connect('database2.db')
+    cursor = conn.cursor()
+
+    # Recherche en fonction de l'id
+    if id:  
+        cursor.execute('SELECT * FROM utilisateur WHERE id = ?', (id,))
+        livre = cursor.fetchone()  
+        if utilisateur:
+           
+            return redirect(f'/fiche_utilisateur/{utilisateur[0]}') 
+        else:
+          
+            return redirect('/consultation_utilisateur/')
+
+    elif nom and email:  
+        cursor.execute('SELECT * FROM utilisateur WHERE nom = ? AND email = ?', (nom, email))
+       utilisateur = cursor.fetchone() 
+        if livre:
+         
+            return redirect(f'/fiche_utilisateur/{utilisateur[0]}')  
+        else:
+       
+            return redirect('/consultation_utilisateur/')
+    else:
+        return redirect('/consultation_utilisateur/')
+ 
+    conn.close()  
 
 
 if __name__ == "__main__":
