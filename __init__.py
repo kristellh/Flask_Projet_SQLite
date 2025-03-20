@@ -216,7 +216,7 @@ def formulaire_utilisateur():
     return render_template('enregistrer_utilisateur.html') 
     
 @app.route('/enregistrer_utilisateur', methods=['POST'])
-def formulaire_utilisateur():
+def formulaire_utilisateur_post():
     nom = request.form['nom']
     email = request.form['email']
     mot_de_passe = request.form['mot_de_passe']
