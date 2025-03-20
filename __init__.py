@@ -327,7 +327,7 @@ def mettre_a_jour_stock():
     conn.commit()
     conn.close()
     
-     return redirect('/consultation_livre/') 
+    return redirect('/consultation_livre/') 
 
 
 
