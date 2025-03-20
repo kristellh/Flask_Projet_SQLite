@@ -14,10 +14,10 @@ cur.execute("INSERT INTO livres (id, created, titre, auteur, pret) VALUES (?, ?,
             (2, 190325, 'Notre dame de Paris', 'Victor Hugo', 'disponible'))
 
 # Insérer dans la table stock
-cur.execute("SELECT id FROM livre WHERE titre = ? AND auteur = ?", ('A la recherche du temps perdu', 'Marcel Proust'))
+cur.execute("SELECT id FROM livres WHERE titre = ? AND auteur = ?", ('A la recherche du temps perdu', 'Marcel Proust'))
 livre1_id = cur.fetchone()[0]
 
-cur.execute("SELECT id FROM livre WHERE titre = ? AND auteur = ?", ('Notre dame de Paris', 'Victor Hugo'))
+cur.execute("SELECT id FROM livres WHERE titre = ? AND auteur = ?", ('Notre dame de Paris', 'Victor Hugo'))
 livre2_id = cur.fetchone()[0]
 
 # Insérer des données de stock en utilisant les IDs des livres
